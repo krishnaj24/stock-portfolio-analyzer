@@ -1,0 +1,12 @@
+{
+    "ICICI Bank Limited": {
+        "ticker": "IBN",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Finance"
+    },
+    "Reliance, Inc.": {
+        "ticker": "RS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    }
+}
