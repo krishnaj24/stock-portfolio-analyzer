@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import os
 from yfinance import Search
-
+from config import MARKETS
 from data import (
     fetch_prices,
     stock_statistics,
@@ -41,66 +41,32 @@ if "global_companies" not in st.session_state:
 if "selected_companies" not in st.session_state:
     st.session_state.selected_companies = []
 
-# --------------------------------------------------
-# SECTOR → COMPANY MAP
-# --------------------------------------------------
-SECTOR_COMPANIES = {
-    "Technology": {
-        "Apple": "AAPL",
-        "Microsoft": "MSFT",
-        "Google": "GOOGL",
-        "Amazon": "AMZN",
-        "Meta": "META"
-    },
-    "Finance": {
-        "JPMorgan Chase": "JPM",
-        "Goldman Sachs": "GS",
-        "Bank of America": "BAC",
-        "HDFC Bank": "HDFCBANK.NS"
-    },
-    "Healthcare": {
-        "Pfizer": "PFE",
-        "Johnson & Johnson": "JNJ",
-        "Sun Pharma": "SUNPHARMA.NS"
-    },
-    "Consumer": {
-        "Coca-Cola": "KO",
-        "PepsiCo": "PEP",
-        "Walmart": "WMT"
-    },
-    "Energy": {
-        "Exxon Mobil": "XOM",
-        "Chevron": "CVX",
-        "Reliance": "RELIANCE.NS"
-    },
-    "Automotive": {
-        "Tesla": "TSLA",
-        "Ford": "F",
-        "BMW": "BMW.DE",
-        "Toyota": "TM"
-    },
-    "Industrial": {
-        "Boeing": "BA",
-        "Caterpillar": "CAT",
-        "Siemens": "SIE.DE"
-    },
-    "Telecom": {
-        "AT&T": "T",
-        "Verizon": "VZ",
-        "Bharti Airtel": "BHARTIARTL.NS"
-    }
-}
+if "selected_market" not in st.session_state:
+    st.session_state.selected_market = list(MARKETS.keys())[0]
 
 # --------------------------------------------------
 # SIDEBAR
 # --------------------------------------------------
 st.sidebar.header("Controls")
 
+# 1️⃣ Market Selection (Radio buttons side by side)
+market = st.sidebar.radio(
+    "Select Market",
+    list(MARKETS.keys()),
+    index=list(MARKETS.keys()).index(st.session_state.selected_market),
+    horizontal=True
+)
+st.session_state.selected_market = market
+
+# 2️⃣ Sector Selection
+SECTOR_COMPANIES = MARKETS[market]
+
 sector = st.sidebar.selectbox(
-    "Sector",
+    "Select Sector",
     list(SECTOR_COMPANIES.keys())
 )
 
+# 3️⃣ Company Selection
 # Merge static + persisted searched companies
 merged_companies = {
     **SECTOR_COMPANIES[sector],
@@ -112,14 +78,11 @@ companies = st.sidebar.multiselect(
     list(merged_companies.keys()),
     default=st.session_state.selected_companies
 )
-
 st.session_state.selected_companies = companies
 
-# --------------------------------------------------
-# SEARCH + ADD COMPANY (FORM = ONE CLICK)
-# --------------------------------------------------
+# 4️⃣ SEARCH + ADD COMPANY (FORM = ONE CLICK)
 with st.sidebar.form("add_company_form"):
-    search_name = st.text_input("Search Any Company (Yahoo Finance)")
+    search_name = st.text_input("Search Company")
     add_clicked = st.form_submit_button("Add Company")
 
     if add_clicked and search_name:
@@ -149,7 +112,9 @@ with st.sidebar.form("add_company_form"):
 start_date = st.sidebar.date_input("Start Date")
 end_date = st.sidebar.date_input("End Date")
 
+# --------------------------------------------------
 # Resolve tickers
+# --------------------------------------------------
 tickers = [
     merged_companies[c]
     for c in st.session_state.selected_companies
@@ -159,7 +124,7 @@ tickers = [
 tickers = list(set(tickers))
 
 if not tickers:
-    st.warning("Please select or add at least one stock.")
+    st.warning("Select or add stock.")
     st.stop()
 
 # --------------------------------------------------
@@ -175,7 +140,6 @@ tabs = st.tabs(["📈 Charts", "📊 Statistics", "💼 Portfolio"])
 # ------------------ CHARTS ------------------
 with tabs[0]:
     st.subheader("Stock Price Comparison")
-
     st.plotly_chart(
         compare_price_chart(prices, tickers),
         use_container_width=True
