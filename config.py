@@ -1,38 +1,76 @@
-SECTOR_MAP = {
-    "Technology": {
-        "Apple": "AAPL",
-        "Microsoft": "MSFT",
-        "Google": "GOOGL",
-        "Amazon": "AMZN",
-        "Meta": "META",
-        "NVIDIA": "NVDA"
+MARKETS = {
+    "Indian Market 🇮🇳": {
+        "Technology": {
+            "TCS": "TCS.NS",
+            "Infosys": "INFY.NS",
+            "Wipro": "WIPRO.NS",
+            "HCL Tech": "HCLTECH.NS"
+        },
+        "Finance": {
+            "HDFC Bank": "HDFCBANK.NS",
+            "ICICI Bank": "ICICIBANK.NS",
+            "SBI": "SBIN.NS",
+            "Axis Bank": "AXISBANK.NS"
+        },
+        "Healthcare": {
+            "Sun Pharma": "SUNPHARMA.NS",
+            "Dr Reddy’s": "DRREDDY.NS"
+        },
+        "Consumer": {
+            "ITC": "ITC.NS",
+            "HUL": "HINDUNILVR.NS"
+        },
+        "Energy": {
+            "Reliance": "RELIANCE.NS",
+            "ONGC": "ONGC.NS"
+        },
+        "Automotive": {
+            "Tata Motors": "TATAMOTORS.NS",
+            "Maruti": "MARUTI.NS"
+        },
+        "Industrial": {
+            "Larsen & Toubro": "LT.NS"
+        },
+        "Telecom": {
+            "Bharti Airtel": "BHARTIARTL.NS"
+        }
     },
-    "Automobile": {
-        "Tesla": "TSLA",
-        "Ford": "F",
-        "BMW": "BMW.DE",
-        "Toyota": "TM"
-    },
-    "Finance": {
-        "JPMorgan": "JPM",
-        "Goldman Sachs": "GS",
-        "Morgan Stanley": "MS",
-        "HDFC Bank": "HDFCBANK.NS"
-    },
-    "Energy": {
-        "ExxonMobil": "XOM",
-        "Chevron": "CVX",
-        "Reliance": "RELIANCE.NS"
-    },
-    "Healthcare": {
-        "Pfizer": "PFE",
-        "Johnson & Johnson": "JNJ",
-        "Moderna": "MRNA"
-    }
-}
 
-TICKER_TO_COMPANY = {
-    v: k
-    for sector in SECTOR_MAP.values()
-    for k, v in sector.items()
+    "US Market 🇺🇸": {
+        "Technology": {
+            "Apple": "AAPL",
+            "Microsoft": "MSFT",
+            "Google": "GOOGL",
+            "Amazon": "AMZN",
+            "Meta": "META"
+        },
+        "Finance": {
+            "JPMorgan Chase": "JPM",
+            "Goldman Sachs": "GS",
+            "Bank of America": "BAC"
+        },
+        "Healthcare": {
+            "Pfizer": "PFE",
+            "Johnson & Johnson": "JNJ"
+        },
+        "Consumer": {
+            "Coca-Cola": "KO",
+            "Walmart": "WMT"
+        },
+        "Energy": {
+            "Exxon Mobil": "XOM",
+            "Chevron": "CVX"
+        },
+        "Automotive": {
+            "Tesla": "TSLA",
+            "Ford": "F"
+        },
+        "Industrial": {
+            "Boeing": "BA"
+        },
+        "Telecom": {
+            "AT&T": "T",
+            "Verizon": "VZ"
+        }
+    }
 }
