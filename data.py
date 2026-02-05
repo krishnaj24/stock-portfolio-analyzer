@@ -79,7 +79,7 @@ def stock_statistics(price_df):
         max_drawdown = (cumulative / cumulative.cummax() - 1).min()
 
         stats.append({
-            "Ticker": col,
+            "Company": col,
             "Start Price": round(start_price, 2),
             "End Price": round(end_price, 2),
             "Total Return %": round(total_return * 100, 2),
