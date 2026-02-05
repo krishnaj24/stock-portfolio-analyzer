@@ -222,6 +222,7 @@ with tabs[2]:
     # 1️⃣ Sliders for weights
     weights = []
     with left_col:
+        st.write("Adjust weights (they will be normalized automatically):")
         for t in prices_named.columns:
             w = st.slider(
                 f"{t}",
@@ -237,14 +238,18 @@ with tabs[2]:
             st.error("Portfolio weights cannot be zero.")
             st.stop()
 
-        weights = [w / sum(weights) for w in weights]  # normalize
+        # Normalize weights
+        weights = [w / sum(weights) for w in weights]
+
+        # Optional: show normalized weights next to sliders
+        for t, w in zip(prices_named.columns, weights):
+            st.write(f"{t}: {w:.2%}")
 
     # 2️⃣ Pie chart updated dynamically
     weights_df = pd.DataFrame({
         "Company": prices_named.columns,
         "Weight": weights
     })
-
     fig = px.pie(weights_df, names="Company", values="Weight", hole=0.4)
     pie_placeholder.plotly_chart(fig, use_container_width=True)  # only once
 
