@@ -1,31 +1,22 @@
 import plotly.express as px
-import pandas as pd
 
-def price_chart(df, ticker):
-    data = df[ticker].reset_index()
-    fig = px.line(
+def compare_price_chart(price_df, selected):
+    data = price_df[selected].reset_index()
+    return px.line(
         data,
         x="Date",
-        y="Close",
-        title=f"{ticker} Price Trend"
+        y=selected,
+        title="Stock Price Comparison"
     )
-    return fig
 
-
-def heatmap_chart(df, tickers):
-    latest = []
-
-    for t in tickers:
-        change = (
-            df[t]["Close"].iloc[-1] - df[t]["Close"].iloc[0]
-        ) / df[t]["Close"].iloc[0] * 100
-        latest.append({"Ticker": t, "Change %": change})
-
-    heat_df = pd.DataFrame(latest)
-
-    fig = px.imshow(
-        heat_df.set_index("Ticker"),
+def correlation_heatmap(price_df):
+    returns = price_df.pct_change().dropna()
+    return px.imshow(
+        returns.corr(),
         color_continuous_scale="RdYlGn",
-        title="Sector Performance Heatmap"
+        title="Stock Return Correlation"
     )
-    return fig
+
+def portfolio_chart(portfolio_returns):
+    cum = (1 + portfolio_returns).cumprod()
+    return px.line(cum, title="Portfolio Cumulative Returns")

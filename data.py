@@ -59,3 +59,35 @@ def compute_portfolio(price_df, weights):
         "Volatility": volatility,
         "Sharpe Ratio": sharpe
     }, portfolio_returns
+def stock_statistics(price_df):
+    stats = []
+
+    for col in price_df.columns:
+        prices = price_df[col].dropna()
+        returns = np.log(prices / prices.shift(1)).dropna()
+
+        start_price = prices.iloc[0]
+        end_price = prices.iloc[-1]
+        days = len(prices)
+
+        total_return = (end_price - start_price) / start_price
+        annual_return = (1 + total_return) ** (252 / days) - 1
+        volatility = returns.std()
+        sharpe = returns.mean() / volatility
+
+        cumulative = (1 + returns).cumprod()
+        max_drawdown = (cumulative / cumulative.cummax() - 1).min()
+
+        stats.append({
+            "Ticker": col,
+            "Start Price": round(start_price, 2),
+            "End Price": round(end_price, 2),
+            "Total Return %": round(total_return * 100, 2),
+            "Annual Return %": round(annual_return * 100, 2),
+            "Volatility": round(volatility, 4),
+            "Sharpe Ratio": round(sharpe, 4),
+            "Max Drawdown %": round(max_drawdown * 100, 2),
+            "Days": days
+        })
+
+    return pd.DataFrame(stats)
