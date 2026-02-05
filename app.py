@@ -36,8 +36,6 @@ if "selected_market" not in st.session_state:
 # -----------------------------
 # SIDEBAR CONTROLS
 # -----------------------------
-st.sidebar.header("Controls")
-
 # 1️⃣ Market selection
 market = st.sidebar.selectbox(
     "Select Market",
