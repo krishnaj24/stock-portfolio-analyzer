@@ -36,7 +36,7 @@ if "selected_market" not in st.session_state:
 # -----------------------------
 # SIDEBAR CONTROLS
 # -----------------------------
-# 1️⃣ Market selection
+# Market selection
 market = st.sidebar.selectbox(
     "Select Market",
     list(MARKETS.keys()),
@@ -44,7 +44,7 @@ market = st.sidebar.selectbox(
 )
 st.session_state.selected_market = market
 
-# 2️⃣ Sector selection
+# Sector selection
 SECTOR_COMPANIES = MARKETS[market]
 sector = st.sidebar.selectbox(
     "Select Sector",
@@ -52,7 +52,7 @@ sector = st.sidebar.selectbox(
 )
 
 # -----------------------------
-# 3️⃣ Merge companies for dropdown
+# Merge companies for dropdown
 # -----------------------------
 # Start with static companies in sector
 merged_companies = dict(SECTOR_COMPANIES[sector])
@@ -67,7 +67,7 @@ for name, info in st.session_state.global_companies.items():
         # fallback for older format (just ticker string)
         merged_companies[name] = info
 
-# 4️⃣ Company selection
+# Company selection
 companies = st.sidebar.multiselect(
     "Select Companies",
     list(merged_companies.keys()),
@@ -76,7 +76,7 @@ companies = st.sidebar.multiselect(
 st.session_state.selected_companies = companies
 
 # -----------------------------
-# 5️⃣ Add new company by name with Yahoo fallback
+# Add new company by name with Yahoo fallback
 # -----------------------------
 with st.sidebar.form("add_company_form"):
     search_name = st.text_input("Add Company")
