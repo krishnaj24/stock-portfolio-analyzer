@@ -1,12 +1,6 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-SECTOR_TICKERS = {
-    "IT": ["TCS.NS", "INFY.NS", "WIPRO.NS"],
-    "Banking": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS"],
-    "Pharma": ["SUNPHARMA.NS", "DRREDDY.NS"],
-    "Energy": ["RELIANCE.NS", "ONGC.NS"]
-}
 
 def fetch_stock_data(tickers, period):
     data = yf.download(
@@ -71,12 +65,12 @@ def stock_statistics(price_df):
         days = len(prices)
 
         total_return = (end_price - start_price) / start_price
-        annual_return = (1 + total_return) ** (252 / days) - 1
+        annual_return = (1 + total_return) ** (252 / days) - 1 #Shows what the return would be if this performance continued for a full year.
         volatility = returns.std()
         sharpe = returns.mean() / volatility
 
         cumulative = (1 + returns).cumprod()
-        max_drawdown = (cumulative / cumulative.cummax() - 1).min()
+        max_drawdown = (cumulative / cumulative.cummax() - 1).min() #.mean() gets the lowest negative value, which represents the worst drawdown experienced by the stock during the period.
 
         stats.append({
             "Company": col,
