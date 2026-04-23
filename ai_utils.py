@@ -1,14 +1,16 @@
 import requests
 import os
-
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-
+import streamlit as st
 def ask_ai(prompt):
+
+    api_key = st.secrets["OPENROUTER_API_KEY"]
 
     url = "https://openrouter.ai/api/v1/chat/completions"
 
     headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Authorization": f"Bearer {api_key}",
+        "HTTP-Referer": "https://stock-portfolio-analyzer.streamlit.app",
+        "X-Title": "Stock Portfolio Analyzer",
         "Content-Type": "application/json"
     }
 
