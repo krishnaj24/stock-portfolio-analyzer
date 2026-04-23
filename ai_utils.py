@@ -19,7 +19,7 @@ def ask_ai(prompt):
         "messages": [
             {
                 "role": "system",
-                "content": "You are a helpful financial assistant. Explain stock charts, portfolio stats and market concepts in simple language."
+                "content": "You are a helpful financial assistant. Explain stock charts, portfolio stats and market concepts in simple language.Answer is 5 lines when  possible."
             },
             {
                 "role": "user",
