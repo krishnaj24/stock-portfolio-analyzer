@@ -2,13 +2,16 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 def compare_price_chart(price_df, selected):
-    data = price_df[selected].reset_index()
-    return px.line(
-        data,
+    df = price_df[selected].copy()
+    df = df.dropna()
+    df = df.reset_index()
+    fig = px.line(
+        df,
         x="Date",
-        y=selected,
-        title="Stock Price Comparison"
+        y=selected,   # multiple columns
+        title="Stock Price Comparison (Normalized Base = 100)"
     )
+    return fig
 
 def correlation_heatmap(price_df):
     returns = price_df.pct_change().dropna()

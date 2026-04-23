@@ -33,6 +33,11 @@ MARKETS = {
         },
         "Telecom": {
             "Bharti Airtel": "BHARTIARTL.NS"
+        },
+        "Commodities": {
+            "Gold ETF (NIFTYBEES)": "GOLDBEES.NS",
+            "Sovereign Gold Bond": "SGB",
+            "Silver ETF": "SILVERBEES.NS"
         }
     },
 
@@ -71,6 +76,55 @@ MARKETS = {
         "Telecom": {
             "AT&T": "T",
             "Verizon": "VZ"
+        },
+        "Commodities": {
+            "Gold Spot": "GC=F",
+            "Gold ETF (GLD)": "GLD",
+            "Silver Futures": "SI=F"
+        }
+        
+    },
+        "European Market 🇪🇺": {
+        "Technology": {
+            "SAP": "SAP.DE",
+            "ASML": "ASML.AS",
+            "Adyen": "ADYEN.AS",
+            "Capgemini": "CAP.PA"
+        },
+        "Finance": {
+            "HSBC": "HSBC.L",
+            "Barclays": "BARC.L",
+            "BNP Paribas": "BNP.PA"
+        },
+        "Healthcare": {
+            "Novartis": "NOVN.SW",
+            "Roche": "ROG.SW",
+            "Sanofi": "SAN.PA"
+        },
+        "Consumer": {
+            "Nestle": "NESN.SW",
+            "Unilever": "ULVR.L"
+        },
+        "Energy": {
+            "Shell": "SHEL.L",
+            "BP": "BP.L",
+            "TotalEnergies": "TTE.PA"
+        },
+        "Automotive": {
+            "Volkswagen": "VOW3.DE",
+            "BMW": "BMW.DE",
+            "Ferrari": "RACE.MI"
+        },
+        "Industrial": {
+            "Siemens": "SIE.DE",
+            "Airbus": "AIR.PA"
+        },
+        "Telecom": {
+            "Vodafone": "VOD.L",
+            "Deutsche Telekom": "DTE.DE"
+        },
+        "Commodities": {
+            "Gold ETF Europe": "SGLN.L"
         }
     }
 }

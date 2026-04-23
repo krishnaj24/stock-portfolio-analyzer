@@ -8,5 +8,55 @@
         "ticker": "RS",
         "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
         "sector": "Technology"
+    },
+    "HEXAWARE TECHNOLOGIES LTD": {
+        "ticker": "HEXT.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "Helmerich & Payne, Inc.": {
+        "ticker": "HP",
+        "market": "US Market \ud83c\uddfa\ud83c\uddf8",
+        "sector": "Technology"
+    },
+    "Hewlett Packard Enterprise Comp": {
+        "ticker": "HPE",
+        "market": "US Market \ud83c\uddfa\ud83c\uddf8",
+        "sector": "Technology"
+    },
+    "MAHINDRA & MAHINDRA LTD": {
+        "ticker": "M&M-BL.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "MAHINDRA EPC IRRIG LTD": {
+        "ticker": "MAHEPC.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "KOTAKMAMC - KOTAKSILVE": {
+        "ticker": "SILVER1.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "Mahindra EPC Irrigation Limited": {
+        "ticker": "MAHEPC.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "Kotak Mahindra Mutual Fund - Kotak Silver ETF Fund": {
+        "ticker": "SILVER1.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "Tech Mahindra Limited": {
+        "ticker": "TECHM.NS",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
+    },
+    "Gold.com, Inc.": {
+        "ticker": "GOLD",
+        "market": "Indian Market \ud83c\uddee\ud83c\uddf3",
+        "sector": "Technology"
     }
 }
