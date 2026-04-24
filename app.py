@@ -203,30 +203,12 @@ USER QUESTION:
 {question}
 
 TASK:
-TASK:
-You must strictly follow these rules:
+Explain what the data implies in simple terms for:
+- risk
+- diversification
+- portfolio behavior
 
-1. Use ONLY values from DATA SUMMARY.
-2. Do NOT repeat correlation with itself (diagonal values).
-3. Do NOT use words like:
-   - "good investment"
-   - "buy/sell"
-   - "strong buy"
-   - "attractive"
-   - "future prediction"
-4. Do NOT add concluding financial advice.
-
-5. For each relationship, explain ONLY:
-   - what the correlation value means (high / medium / low)
-   - what it implies for diversification or portfolio risk
-
-6. If correlation = 1 and same asset, IGNORE it completely.
-
-OUTPUT FORMAT (VERY IMPORTANT):
-- Bullet points only
-- Each bullet = one relationship
-- Max 3–5 lines total
-- No summary paragraph
+Keep it short, factual, and data-driven. No generic financial theory.
 """
         answer = ask_ai(full_prompt)
         st.session_state.chat_history[key].append(("You", question))
@@ -343,14 +325,33 @@ with tabs[2]:
     # 3️⃣ Compute portfolio stats
     weight_array = np.array([
     weights[col] for col in prices_named.columns])
+    # 💰 INITIAL INVESTMENT INPUT
+    initial_investment = st.number_input(
+        "💰 Initial Investment (₹)",
+        value=100000,
+        step=1000
+)
     portfolio_stats, portfolio_returns = compute_portfolio(
         prices_named,
         weight_array)
+    # 💰 Portfolio final value simulation
+    final_value = initial_investment * (1 + portfolio_returns).cumprod().iloc[-1]
+    profit_loss = final_value - initial_investment
+    return_pct = (profit_loss / initial_investment) * 100
     # 4️⃣ Show metrics
     c1, c2, c3 = st.columns(3)
     c1.metric("Avg Daily Return", round(portfolio_stats["Avg Daily Return"], 4))
     c2.metric("Volatility", round(portfolio_stats["Volatility"], 4))
     c3.metric("Sharpe Ratio", round(portfolio_stats["Sharpe Ratio"], 4))
+    st.subheader("💰 Investment Performance")
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Initial Investment", f"₹{initial_investment:,.0f}")
+    m2.metric("Final Value", f"₹{final_value:,.2f}")
+    m3.metric("Return %", f"{return_pct:.2f}%")
+    st.metric(
+        "Profit / Loss",
+        f"₹{profit_loss:,.2f}"
+)
     # risk score
     vol = portfolio_stats["Volatility"]
     sharpe = portfolio_stats["Sharpe Ratio"]
