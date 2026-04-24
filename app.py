@@ -284,12 +284,12 @@ with tabs[2]:
             st.session_state.portfolio_weights[c] = 1 / len(cols)
     # ---------------- LEFT SIDE (SLIDERS) ----------------
     with left_col:
-        st.write("Adjust weights manually (Total should be 100%)")
+        st.write("Adjust weights manually (auto-normalized to 100%)")
 
-        weights = {}
+        raw_weights = {}
 
         for c in cols:
-            weights[c] = st.slider(
+            raw_weights[c] = st.slider(
                 c,
                 min_value=0.0,
                 max_value=1.0,
@@ -298,13 +298,22 @@ with tabs[2]:
                 key=f"slider_{c}"
             )
 
-        # Save weights to session state
+        # 🔥 NORMALIZE TO 100%
+        total = sum(raw_weights.values())
+
+        if total == 0:
+            weights = {k: 1/len(cols) for k in cols}
+        else:
+            weights = {k: v / total for k, v in raw_weights.items()}
+
+        # Save normalized weights
         st.session_state.portfolio_weights = weights
 
-        # Show total so user knows if it's valid
+        # Show clean output
         total_weight = sum(weights.values())
-        st.write(f"**Total Weight:** {total_weight:.2%}")
-
+        st.markdown("**Current Portfolio Weights:**")
+        for k, v in weights.items():
+            st.markdown(f"- {k}: {v*100:.2f}%")
     # ---------------- RIGHT SIDE (PIE CHART) ----------------
     weights_df = pd.DataFrame({
         "Company": list(weights.keys()),
