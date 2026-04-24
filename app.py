@@ -192,6 +192,7 @@ RULES:
 - Do NOT make predictions about future stock performance.
 - Focus only on explaining what the numbers mean (risk, volatility, diversification, or portfolio behavior).
 - If information is missing, say "not enough data".
+- If you cannot express something as a direct interpretation of a numeric correlation value, do NOT include it.
 
 SECTION: {title}
 DATA SUMMARY:
@@ -202,12 +203,30 @@ USER QUESTION:
 {question}
 
 TASK:
-Explain what the data implies in simple terms for:
-- risk
-- diversification
-- portfolio behavior
+TASK:
+You must strictly follow these rules:
 
-Keep it short, factual, and data-driven. No generic financial theory.
+1. Use ONLY values from DATA SUMMARY.
+2. Do NOT repeat correlation with itself (diagonal values).
+3. Do NOT use words like:
+   - "good investment"
+   - "buy/sell"
+   - "strong buy"
+   - "attractive"
+   - "future prediction"
+4. Do NOT add concluding financial advice.
+
+5. For each relationship, explain ONLY:
+   - what the correlation value means (high / medium / low)
+   - what it implies for diversification or portfolio risk
+
+6. If correlation = 1 and same asset, IGNORE it completely.
+
+OUTPUT FORMAT (VERY IMPORTANT):
+- Bullet points only
+- Each bullet = one relationship
+- Max 3–5 lines total
+- No summary paragraph
 """
         answer = ask_ai(full_prompt)
         st.session_state.chat_history[key].append(("You", question))
