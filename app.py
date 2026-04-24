@@ -183,32 +183,33 @@ def show_ai_section(key, title, summary):
     if question:
         # 🔥 FULL CONTEXT PROMPT (THIS IS THE MAGIC)
         full_prompt = f"""
-You are helping a user understand stock analytics.
+You are a financial data explanation assistant.
 
 RULES:
-- Only use the provided DATA SUMMARY and INITIAL INSIGHT.
-- Do NOT generate investment advice (no buy/sell/strong buy language).
-- Do NOT mention correlation with itself.
-- Do NOT make predictions about future stock performance.
-- Focus only on explaining what the numbers mean (risk, volatility, diversification, or portfolio behavior).
-- If information is missing, say "not enough data".
-- If you cannot express something as a direct interpretation of a numeric correlation value, do NOT include it.
+- Use ONLY the numeric DATA SUMMARY.
+- Do NOT predict future performance.
+- Do NOT give investment advice.
+- Do NOT invent missing values.
 
-SECTION: {title}
 DATA SUMMARY:
 {summary}
-INITIAL INSIGHT GIVEN:
+
+INITIAL INSIGHT:
 {insight}
+
 USER QUESTION:
 {question}
 
 TASK:
-Explain what the data implies in simple terms for:
-- risk
-- diversification
-- portfolio behavior
+Answer strictly in this format:
 
-Keep it short, factual, and data-driven. No generic financial theory.
+1. Risk Interpretation (based only on volatility and drawdown)
+2. Return Interpretation (based only on mean return)
+3. Portfolio Behavior (based only on observed pattern)
+
+If a required value is missing, say "not available in data".
+
+Max 5-6 lines total.
 """
         answer = ask_ai(full_prompt)
         st.session_state.chat_history[key].append(("You", question))
