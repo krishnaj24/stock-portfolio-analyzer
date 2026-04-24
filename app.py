@@ -184,6 +184,15 @@ def show_ai_section(key, title, summary):
         # 🔥 FULL CONTEXT PROMPT (THIS IS THE MAGIC)
         full_prompt = f"""
 You are helping a user understand stock analytics.
+
+RULES:
+- Only use the provided DATA SUMMARY and INITIAL INSIGHT.
+- Do NOT generate investment advice (no buy/sell/strong buy language).
+- Do NOT mention correlation with itself.
+- Do NOT make predictions about future stock performance.
+- Focus only on explaining what the numbers mean (risk, volatility, diversification, or portfolio behavior).
+- If information is missing, say "not enough data".
+
 SECTION: {title}
 DATA SUMMARY:
 {summary}
@@ -191,8 +200,14 @@ INITIAL INSIGHT GIVEN:
 {insight}
 USER QUESTION:
 {question}
-Give a clear, specific answer using the data above.Dont talk about correlation with itself. Focus on what the numbers imply for the stock's performance, risk, or portfolio impact.
-Avoid generic textbook explanations.
+
+TASK:
+Explain what the data implies in simple terms for:
+- risk
+- diversification
+- portfolio behavior
+
+Keep it short, factual, and data-driven. No generic financial theory.
 """
         answer = ask_ai(full_prompt)
         st.session_state.chat_history[key].append(("You", question))
