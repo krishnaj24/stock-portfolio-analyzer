@@ -191,7 +191,7 @@ INITIAL INSIGHT GIVEN:
 {insight}
 USER QUESTION:
 {question}
-Give a clear, specific answer using the data above.
+Give a clear, specific answer using the data above.Dont talk about correlation with itself. Focus on what the numbers imply for the stock's performance, risk, or portfolio impact.
 Avoid generic textbook explanations.
 """
         answer = ask_ai(full_prompt)
@@ -311,7 +311,7 @@ with tabs[2]:
     # risk score
     vol = portfolio_stats["Volatility"]
     sharpe = portfolio_stats["Sharpe Ratio"]
-    vol_score = (vol - 0.005) / (0.03 - 0.005) * 100
+    vol_score = (vol - 0.005) / (0.03 - 0.005) * 100 #min-max scaling.
     sharpe_score = (3 - sharpe) / 4 * 100
     # Final risk score (weighted)
     risk_score = 0.6 * vol_score + 0.4 * sharpe_score
