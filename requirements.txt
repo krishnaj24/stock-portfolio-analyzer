@@ -48,3 +48,5 @@ urllib3==2.6.3
 watchdog==6.0.0
 websockets==16.0
 yfinance==1.1.0
+python-dotenv==1.0.1
+openai==1.0.0
